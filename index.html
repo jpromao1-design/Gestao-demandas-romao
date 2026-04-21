@@ -1,105 +1,248 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#050505" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>SGT 8º BAEP - Gestão de Performance</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>SGT 8º BAEP - Gestão de Performance</title>
+    
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div class="topbar">
-    <h1>SGT - 8º BAEP</h1>
-    <small style="color: var(--text-dim)">Híbrido Responsivo v5.0 - Firebase Integrado</small>
-  </div>
-
-  <div class="container">
-
-    <div class="card">
-      <h3 style="margin-top:0; color:var(--primary); font-family:'Cinzel', serif;">Nova Missão</h3>
-      <div class="grid-form">
-
-        <div>
-          <label>Categoria</label>
-          <select id="task-category" onchange="toggleFields()">
-            <option value="PROFISSIONAL">Profissional / BAEP</option>
-            <option value="PESSOAL">Pessoal / Outros</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Seção Adm</label>
-          <select id="task-secao">
-            <option value="NENHUMA">NENHUMA</option>
-            <option value="P1">P1</option>
-            <option value="P2">P2</option>
-            <option value="P3">P3</option>
-            <option value="P4">P4</option>
-            <option value="P5">P5</option>
-            <option value="SJD">SJD</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Atribuída por Sup?</label>
-          <select id="task-tem-superior" onchange="toggleFields()">
-            <option value="NAO">Não</option>
-            <option value="SIM">Sim</option>
-          </select>
-        </div>
-
-        <div>
-          <label id="label-exige-feedback">Exige Retorno/Feedback?</label>
-          <select id="task-exige-feedback" disabled>
-            <option value="NAO">Não</option>
-            <option value="SIM">Sim, após conclusão</option>
-          </select>
-        </div>
-
-        <div style="grid-column: 1 / -1;">
-          <label>Missão / Descrição</label>
-          <input type="text" id="task-desc" placeholder="Descreva a missão...">
-        </div>
-
-        <div>
-          <label>Executor (Responsável)</label>
-          <input type="text" id="task-executor">
-        </div>
-
-        <div>
-          <label id="label-superior">Nome do Superior</label>
-          <input type="text" id="task-superior" disabled placeholder="N/A">
-        </div>
-
-        <div>
-          <label>Início</label>
-          <input type="date" id="task-created-at">
-        </div>
-
-        <div>
-          <label>Prazo Final</label>
-          <input type="date" id="task-deadline">
-        </div>
-
-      </div>
-      <button class="btn btn-gold" onclick="addTask()">Cadastrar Missão</button>
+    <div class="topbar">
+        <h1 style="font-family: 'Cinzel', serif;">SGT - 8º BAEP</h1>
+        <small style="color: #d4af37">Híbrido Responsivo v5.0 - Firebase Integrado</small>
     </div>
 
-    <div class="card">
-      <div class="toolbar-actions">
+    <div class="container">
 
-        <div class="filter-group">
-          <button class="btn btn-filter active" id="f-all" onclick="setFilter('ALL')">TODAS</button>
-          <button class="btn btn-filter" id="f-prof" onclick="setFilter('PROFISSIONAL')">PROFISSIONAL</button>
-          <button class="btn btn-filter" id="f-pessoal" onclick="setFilter('PESSOAL')">PESSOAL</button>
+        <div class="card">
+            <h3 style="margin-top:0; color: #d4af37; font-family:'Cinzel', serif; margin-bottom: 15px;">Nova Missão</h3>
+            
+            <div class="grid-form">
+                <div>
+                    <label>Categoria</label>
+                    <select id="task-category" onchange="toggleFields()">
+                        <option value="PROFISSIONAL">Profissional / BAEP</option>
+                        <option value="PESSOAL">Pessoal / Outros</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Seção Adm</label>
+                    <select id="task-secao">
+                        <option value="NENHUMA">NENHUMA</option>
+                        <option value="P1">P1</option>
+                        <option value="P2">P2</option>
+                        <option value="P3">P3</option>
+                        <option value="P4">P4</option>
+                        <option value="P5">P5</option>
+                        <option value="SJD">SJD</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Atribuída por Sup?</label>
+                    <select id="task-tem-superior" onchange="toggleFields()">
+                        <option value="NAO">Não</option>
+                        <option value="SIM">Sim</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label id="label-exige-feedback">Exige Retorno/Feedback?</label>
+                    <select id="task-exige-feedback" disabled>
+                        <option value="NAO">Não</option>
+                        <option value="SIM">Sim, após conclusão</option>
+                    </select>
+                </div>
+
+                <div style="grid-column: 1 / -1;">
+                    <label>Missão / Descrição</label>
+                    <input type="text" id="task-desc" placeholder="Descreva a missão detalhadamente...">
+                </div>
+
+                <div>
+                    <label>Executor (Responsável)</label>
+                    <input type="text" id="task-executor" placeholder="Nome do responsável">
+                </div>
+
+                <div>
+                    <label id="label-superior">Nome do Superior</label>
+                    <input type="text" id="task-superior" disabled placeholder="N/A">
+                </div>
+
+                <div>
+                    <label>Início</label>
+                    <input type="date" id="task-created-at">
+                </div>
+
+                <div>
+                    <label>Prazo Final</label>
+                    <input type="date" id="task-deadline">
+                </div>
+            </div>
+
+            <button class="btn btn-gold" onclick="addTask()" style="margin-top: 20px;">
+                Cadastrar Missão
+            </button>
         </div>
 
-        <select id="filter-secao" class="select-filter" onchange="setSecaoFilter(this.value)">
-          <option value="ALL">TODAS AS SEÇÕES</option>
+        <div class="card">
+            <h3 style="margin-bottom: 15px; font-family:'Cinzel', serif;">Lista de Missões</h3>
+            
+            <div class="toolbar-actions">
+                <div class="filter-group">
+                    <button class="btn btn-filter active" id="f-all" onclick="setFilter('ALL')">TODAS</button>
+                    <button class="btn btn-filter" id="f-prof" onclick="setFilter('PROFISSIONAL')">PROF</button>
+                    <button class="btn btn-filter" id="f-pessoal" onclick="setFilter('PESSOAL')">PESSOAL</button>
+                </div>
+
+                <select id="filter-secao" class="select-filter" onchange="setSecaoFilter(this.value)" style="margin-top: 10px;">
+                    <option value="ALL">TODAS AS SEÇÕES</option>
+                    <option value="P1">P1</option>
+                    <option value="P2">P2</option>
+                    <option value="P3">P3</option>
+                    <option value="P4">P4</option>
+                    <option value="P5">P5</option>
+                    <option value="SJD">SJD</option>
+                </select>
+
+                <button class="btn" style="background-color: #25d366; color: white;" onclick="shareWA()">
+                    📱 COMPARTILHAR SELECIONADAS (WA)
+                </button>
+            </div>
+
+            <div class="table-wrapper" style="overflow-x: auto; margin-top: 20px;">
+                <table>
+                    <thead>
+                        <tr style="background-color: #f0f0f0;">
+                            <th>Status</th>
+                            <th>Missão</th>
+                            <th>Responsável</th>
+                            <th>Datas</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="task-list">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module">
+        // Importante: As configurações do Firebase devem vir do seu index.html original ou arquivo de config
+        // Estou mantendo a lógica que você enviou adaptada para o novo layout
+        
+        const { db, collection, addDoc, getDocs, serverTimestamp, query, orderBy, doc, deleteDoc } = window.firebaseDB;
+
+        async function addTask() {
+            const desc = document.getElementById('task-desc').value;
+            const category = document.getElementById('task-category').value;
+            const secao = document.getElementById('task-secao').value;
+            const executor = document.getElementById('task-executor').value;
+            const superior = document.getElementById('task-superior').value;
+            const createdAt = document.getElementById('task-created-at').value;
+            const deadline = document.getElementById('task-deadline').value;
+
+            if (!desc) {
+                alert("Capitão, descreva a missão antes de cadastrar!");
+                return;
+            }
+
+            const taskData = {
+                descricao: desc,
+                categoria: category,
+                secao: secao,
+                executor: executor,
+                superior: superior,
+                inicio: createdAt,
+                prazo: deadline,
+                status: "PENDENTE",
+                criadoEm: serverTimestamp()
+            };
+
+            try {
+                await addDoc(collection(db, "missoes"), taskData);
+                alert("Missão enviada com sucesso!");
+                document.getElementById('task-desc').value = "";
+                document.getElementById('task-executor').value = "";
+                renderTasks(); 
+            } catch (error) {
+                console.error("Erro ao salvar:", error);
+                alert("Erro ao salvar no Firebase.");
+            }
+        }
+
+        async function renderTasks() {
+            const taskList = document.getElementById('task-list');
+            if(!taskList) return;
+            taskList.innerHTML = "<tr><td colspan='5' style='text-align:center;'>Sincronizando...</td></tr>";
+
+            try {
+                const q = query(collection(db, "missoes"), orderBy("criadoEm", "desc"));
+                const querySnapshot = await getDocs(q);
+                taskList.innerHTML = ""; 
+
+                querySnapshot.forEach((docSnap) => {
+                    const task = docSnap.data();
+                    const row = `
+                        <tr>
+                            <td><span class="badge" style="background:#d4af37; color:black; font-weight:bold;">${task.status}</span></td>
+                            <td><strong>${task.descricao}</strong><br><small>${task.categoria}</small></td>
+                            <td>${task.executor}<br><small>S: ${task.secao}</small></td>
+                            <td><small>Fim: ${task.prazo}</small></td>
+                            <td>
+                                <button onclick="deleteTask('${docSnap.id}')" style="background:#ff4d4d; color:white; border:none; padding:5px; border-radius:4px;">X</button>
+                            </td>
+                        </tr>
+                    `;
+                    taskList.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Erro ao ler dados:", error);
+            }
+        }
+
+        window.addTask = addTask;
+        window.deleteTask = async (id) => {
+            if(confirm("Apagar missão?")) {
+                await deleteDoc(doc(db, "missoes", id));
+                renderTasks();
+            }
+        };
+
+        // Inicializa a lista
+        renderTasks();
+    </script>
+
+    <script>
+        function toggleFields() {
+            const temSuperior = document.getElementById('task-tem-superior').value;
+            const inputSup = document.getElementById('task-superior');
+            const feedback = document.getElementById('task-exige-feedback');
+            
+            inputSup.disabled = (temSuperior === "NAO");
+            feedback.disabled = (temSuperior === "NAO");
+            
+            if(temSuperior === "NAO") {
+                inputSup.value = "";
+                inputSup.placeholder = "N/A";
+            } else {
+                inputSup.placeholder = "Nome do Superior";
+            }
+        }
+    </script>
+</body>
+</html>
           <option value="P1">P1</option>
           <option value="P2">P2</option>
           <option value="P3">P3</option>
