@@ -1,105 +1,235 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#050505" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <title>SGT 8º BAEP - Gestão de Performance</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#050505" />
+  <title>SGT 8º BAEP - Gestão de Performance</title>
+  
+  <style>
+    :root {
+      --primary: #d4af37; /* Dourado BAEP */
+      --bg-dark: #050505;
+      --card-bg: #ffffff;
+      --text-main: #333;
+      --border: #ddd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+
+    body { background-color: #f4f4f4; color: var(--text-main); padding-bottom: 30px; }
+
+    /* Barra Superior */
+    .topbar {
+      background: var(--bg-dark);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-bottom: 4px solid var(--primary);
+    }
+
+    .topbar h1 { font-size: 1.4rem; letter-spacing: 1px; }
+
+    .container { padding: 15px; max-width: 600px; margin: 0 auto; }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .card h3 { color: var(--primary); margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+
+    /* Formulário */
+    .grid-form { display: flex; flex-direction: column; gap: 12px; }
+
+    .form-group { display: flex; flex-direction: column; }
+
+    label { font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; color: #555; }
+
+    input, select {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 16px; /* Evita zoom no mobile */
+      background: #fafafa;
+    }
+
+    /* Botões */
+    .btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-gold { background: var(--primary); color: black; margin-top: 10px; }
     
-    <link rel="stylesheet" href="css/style.css" />
+    .filter-group { display: flex; gap: 5px; margin-bottom: 10px; }
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    .btn-filter { flex: 1; padding: 10px; font-size: 0.75rem; background: #eee; border: 1px solid #ddd; }
+    
+    .btn-filter.active { background: var(--bg-dark); color: white; border-color: var(--bg-dark); }
+
+    .btn-wa { background: #25d366; color: white; margin-top: 10px; font-size: 0.85rem; }
+
+    /* Tabela Responsiva */
+    .table-wrapper { overflow-x: auto; margin-top: 15px; }
+    
+    table { width: 100%; border-collapse: collapse; min-width: 400px; }
+    
+    th { background: #eee; text-align: left; padding: 10px; font-size: 0.75rem; text-transform: uppercase; }
+    
+    td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.85rem; vertical-align: top; }
+
+    .badge { padding: 3px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; background: var(--primary); color: #000; }
+  </style>
 </head>
 <body>
 
-    <div class="topbar">
-        <h1 style="font-family: 'Cinzel', serif;">SGT - 8º BAEP</h1>
-        <small style="color: #d4af37">Híbrido Responsivo v5.0 - Firebase Integrado</small>
-    </div>
+  <div class="topbar">
+    <h1>SGT - 8º BAEP</h1>
+    <small style="color: var(--primary)">Híbrido Responsivo v5.0 - Firebase</small>
+  </div>
 
-    <div class="container">
+  <div class="container">
 
-        <div class="card">
-            <h3 style="margin-top:0; color: #d4af37; font-family:'Cinzel', serif; margin-bottom: 15px;">Nova Missão</h3>
-            
-            <div class="grid-form">
-                <div>
-                    <label>Categoria</label>
-                    <select id="task-category" onchange="toggleFields()">
-                        <option value="PROFISSIONAL">Profissional / BAEP</option>
-                        <option value="PESSOAL">Pessoal / Outros</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label>Seção Adm</label>
-                    <select id="task-secao">
-                        <option value="NENHUMA">NENHUMA</option>
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
-                        <option value="P4">P4</option>
-                        <option value="P5">P5</option>
-                        <option value="SJD">SJD</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label>Atribuída por Sup?</label>
-                    <select id="task-tem-superior" onchange="toggleFields()">
-                        <option value="NAO">Não</option>
-                        <option value="SIM">Sim</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label id="label-exige-feedback">Exige Retorno/Feedback?</label>
-                    <select id="task-exige-feedback" disabled>
-                        <option value="NAO">Não</option>
-                        <option value="SIM">Sim, após conclusão</option>
-                    </select>
-                </div>
-
-                <div style="grid-column: 1 / -1;">
-                    <label>Missão / Descrição</label>
-                    <input type="text" id="task-desc" placeholder="Descreva a missão detalhadamente...">
-                </div>
-
-                <div>
-                    <label>Executor (Responsável)</label>
-                    <input type="text" id="task-executor" placeholder="Nome do responsável">
-                </div>
-
-                <div>
-                    <label id="label-superior">Nome do Superior</label>
-                    <input type="text" id="task-superior" disabled placeholder="N/A">
-                </div>
-
-                <div>
-                    <label>Início</label>
-                    <input type="date" id="task-created-at">
-                </div>
-
-                <div>
-                    <label>Prazo Final</label>
-                    <input type="date" id="task-deadline">
-                </div>
-            </div>
-
-            <button class="btn btn-gold" onclick="addTask()" style="margin-top: 20px;">
-                Cadastrar Missão
-            </button>
+    <div class="card">
+      <h3>NOVA MISSÃO</h3>
+      <div class="grid-form">
+        <div class="form-group">
+          <label>Categoria</label>
+          <select id="task-category">
+            <option value="PROFISSIONAL">Profissional / BAEP</option>
+            <option value="PESSOAL">Pessoal / Outros</option>
+          </select>
         </div>
 
-        <div class="card">
-            <h3 style="margin-bottom: 15px; font-family:'Cinzel', serif;">Lista de Missões</h3>
-            
-            <div class="toolbar-actions">
-                <div class="filter-group">
-                    <button class="btn btn-filter active" id="f-all" onclick="setFilter('ALL')">TODAS</button>
+        <div class="form-group">
+          <label>Seção Adm</label>
+          <select id="task-secao">
+            <option value="NENHUMA">NENHUMA</option>
+            <option value="P1">P1</option><option value="P2">P2</option>
+            <option value="P3">P3</option><option value="P4">P4</option>
+            <option value="P5">P5</option><option value="SJD">SJD</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Missão / Descrição</label>
+          <input type="text" id="task-desc" placeholder="Ex: Relatório de inteligência...">
+        </div>
+
+        <div class="form-group">
+          <label>Executor (Responsável)</label>
+          <input type="text" id="task-executor" placeholder="Nome do PM">
+        </div>
+
+        <div class="form-group">
+          <label>Prazo Final</label>
+          <input type="date" id="task-deadline">
+        </div>
+
+        <button class="btn btn-gold" onclick="addTask()">Cadastrar Missão</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>LISTA DE MISSÕES</h3>
+      
+      <div class="filter-group">
+        <button class="btn btn-filter active" onclick="setFilter('ALL')">TODAS</button>
+        <button class="btn btn-filter" onclick="setFilter('PROF')">PROF</button>
+        <button class="btn btn-filter" onclick="setFilter('PESSOAL')">PESSOAL</button>
+      </div>
+
+      <button class="btn btn-wa" onclick="shareWA()">📱 COMPARTILHAR NO WHATSAPP</button>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Missão / Responsável</th>
+              <th>Prazo</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="task-list">
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    const { db, collection, addDoc, getDocs, serverTimestamp, query, orderBy, doc, deleteDoc } = window.firebaseDB;
+
+    async function addTask() {
+      const desc = document.getElementById('task-desc').value;
+      const category = document.getElementById('task-category').value;
+      const secao = document.getElementById('task-secao').value;
+      const executor = document.getElementById('task-executor').value;
+      const deadline = document.getElementById('task-deadline').value;
+
+      if (!desc || !executor) {
+        alert("Capitão, preencha a descrição e o executor!");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "missoes"), {
+          descricao: desc,
+          categoria: category,
+          secao: secao,
+          executor: executor,
+          prazo: deadline,
+          status: "PENDENTE",
+          criadoEm: serverTimestamp()
+        });
+        alert("Missão cadastrada!");
+        location.reload(); // Recarrega para atualizar a lista
+      } catch (e) { console.error(e); }
+    }
+
+    async function renderTasks() {
+      const taskList = document.getElementById('task-list');
+      try {
+        const q = query(collection(db, "missoes"), orderBy("criadoEm", "desc"));
+        const snap = await getDocs(q);
+        taskList.innerHTML = "";
+        snap.forEach((d) => {
+          const t = d.data();
+          taskList.innerHTML += `
+            <tr>
+              <td><span class="badge">${t.status}</span></td>
+              <td><strong>${t.descricao}</strong><br><small>${t.executor} (${t.secao})</small></td>
+              <td>${t.prazo}</td>
+              <td><button onclick="deleteTask('${d.id}')" style="color:red; background:none; border:none; font-weight:bold;">X</button></td>
+            </tr>`;
+        });
+      } catch (e) { console.error(e); }
+    }
+
+    window.addTask = addTask;
+    window.deleteTask = async (id) => {
+      if(confirm("Excluir missão?")) {
+        await deleteDoc(doc(db, "missoes", id));
+        renderTasks();
+      }
+    };
+    renderTasks();
+  </script>
+</body>
+</html>
                     <button class="btn btn-filter" id="f-prof" onclick="setFilter('PROFISSIONAL')">PROF</button>
                     <button class="btn btn-filter" id="f-pessoal" onclick="setFilter('PESSOAL')">PESSOAL</button>
                 </div>
